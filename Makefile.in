@@ -1,10 +1,10 @@
-YICES_DIR = /usr/local/yices-1.0.29
+PREFIX ?= /usr/local
 
 CC = gcc
 FLEX = flex
 BISON = bison
-CFLAGS = -std=c99 -pedantic -g -Wall
-LDFLAGS = -g -lgmp -lgmpxx -lstdc++ 
+CFLAGS = -std=gnu99 -pedantic -g -Wall
+LDFLAGS = -g -lgmp -lgmpxx -lstdc++
 
 OBJECTS = smtlib2bisonparser.o \
 	  smtlib2flexlexer.o \
@@ -20,10 +20,30 @@ OBJECTS = smtlib2bisonparser.o \
 YICES_OBJECTS = smtlib2yices.o \
 	        yicesmain.o
 
-all: libsmtlib2parser.a smtlib2yices
+DIST_HEADERS = \
+	smtlib2types.h \
+	smtlib2utils.h \
+	smtlib2vector.h \
+	smtlib2hashtable.h \
+	smtlib2charbuf.h \
+	smtlib2stream.h \
+	smtlib2genvector.h \
+	smtlib2termparser.h \
+	smtlib2abstractparser.h \
+	smtlib2abstractparser_private.h \
+	smtlib2scanner.h \
+	smtlib2parserinterface.h
+
+.PHONY: all clean install
+
+all: libsmtlib2parser.a
 
 clean:
 	rm -f $(OBJECTS) $(YICES_OBJECTS) libsmtlib2parser.a smtlib2yices smtlib2bisonparser.c smtlib2bisonparser.h smtlib2flexlexer.c smtlib2flexlexer.h
+
+install: libsmtlib2parser.a $(DIST_HEADERS)
+	mkdir -p $(PREFIX)/lib && install -m 0644 libsmtlib2parser.a $(PREFIX)/lib
+	mkdir -p $(PREFIX)/include/smtlib2 && install -m 0644 $(DIST_HEADERS) $(PREFIX)/include/smtlib2
 
 
 smtlib2yices: libsmtlib2parser.a $(YICES_OBJECTS)
