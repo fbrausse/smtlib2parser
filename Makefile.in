@@ -39,7 +39,7 @@ DIST_HEADERS = \
 all: libsmtlib2parser.a
 
 clean:
-	rm -f $(OBJECTS) $(YICES_OBJECTS) libsmtlib2parser.a smtlib2yices smtlib2bisonparser.c smtlib2bisonparser.h smtlib2flexlexer.c smtlib2flexlexer.h
+	rm -f $(OBJECTS) $(YICES_OBJECTS) libsmtlib2parser.a smtlib2yices smtlib2bisonparser.c smtlib2bisonparser.h smtlib2flexlexer.c smtlib2flexlexer.h smtlib2bisonparser.output
 
 install: libsmtlib2parser.a $(DIST_HEADERS)
 	mkdir -p $(PREFIX)/lib && install -m 0644 libsmtlib2parser.a $(PREFIX)/lib
