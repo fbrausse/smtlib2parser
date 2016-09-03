@@ -60,15 +60,15 @@ smtlib2_term smtlib2_make_term_from_identifier(
 %}
 
 %locations
-%pure_parser
+%pure-parser
 %defines
-%name-prefix="smtlib2_parser_"
+%name-prefix "smtlib2_parser_"
 %debug
 %verbose
 
-%parse-param {yyscan_t scanner}
+%parse-param {void *scanner}
 %parse-param {smtlib2_parser_interface *parser}
-%lex-param {yyscan_t scanner}
+%lex-param {void *scanner}
 
 %union {
     char *string;
@@ -86,7 +86,7 @@ smtlib2_term smtlib2_make_term_from_identifier(
 };
 
 
-%token_table
+%token-table
 
 %token <string> BINCONSTANT
 %token <string> HEXCONSTANT
