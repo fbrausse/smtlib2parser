@@ -338,8 +338,8 @@ void smtlib2_abstract_parser_get_info(smtlib2_parser_interface *p,
     if (pp->response_ != SMTLIB2_RESPONSE_ERROR) {
         intptr_t v;
         if (smtlib2_hashtable_find(pp->info_, (intptr_t)keyword, &v)) {
-            smtlib2_vector_push(pp->response_data_, (intptr_t)keyword);
-            smtlib2_vector_push(pp->response_data_, v);
+            smtlib2_vector_push(pp->response_data_, (intptr_t)smtlib2_strdup(keyword));
+            smtlib2_vector_push(pp->response_data_, (intptr_t)smtlib2_strdup((char *)v));
             pp->response_ = SMTLIB2_RESPONSE_INFO;
         } else {
             pp->response_ = SMTLIB2_RESPONSE_UNSUPPORTED;
@@ -628,5 +628,7 @@ void smtlib2_abstract_parser_reset_response(smtlib2_abstract_parser *p)
         free(p->errmsg_);
         p->errmsg_ = NULL;
     }
+    for (unsigned i=0; i<smtlib2_vector_size(p->response_data_); i++)
+        free((void *)smtlib2_vector_at(p->response_data_, i));
     smtlib2_vector_clear(p->response_data_);
 }
