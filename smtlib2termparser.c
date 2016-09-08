@@ -186,7 +186,8 @@ void smtlib2_term_parser_pop_let_scope(smtlib2_term_parser *tp)
         }
         smtlib2_vector_pop(tp->let_levels_);
         free(key);
-        key = (char *)smtlib2_vector_last(tp->let_levels_);
+        key = smtlib2_vector_size(tp->let_levels_) > 0
+            ? (char *)smtlib2_vector_last(tp->let_levels_) : NULL;
     }
     smtlib2_vector_pop(tp->let_levels_);
 }
