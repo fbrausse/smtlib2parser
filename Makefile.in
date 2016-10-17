@@ -3,7 +3,7 @@ PREFIX ?= /usr/local
 CC = gcc
 FLEX = flex
 BISON = bison
-CFLAGS = -std=gnu99 -pedantic -g -Wall
+CFLAGS = -std=gnu99 -pedantic -g -Wall -O2
 LDFLAGS = -g -lgmp -lgmpxx -lstdc++
 
 OBJECTS = smtlib2bisonparser.o \
