@@ -473,29 +473,19 @@ annotated_term :
 plain_term :
  '(' begin_let_scope '(' let_bindings ')' a_term ')'
   {
-      $$ = parser->pop_let_scope(parser);
-      if (! $$) {
-          $$ = $6;
-      }
+      parser->pop_let_scope(parser);
+      $$ = $6;
   }
 | '(' TK_FORALL '(' quant_var_list ')' a_term ')'
   {
-      smtlib2_term tmp;
       $$ = parser->make_forall_term(parser, $6);
-      tmp = parser->pop_quantifier_scope(parser);
-      if (tmp) {
-          $$ = tmp;
-      }
+      parser->pop_quantifier_scope(parser);
       smtlib2_vector_delete($4);
   }
 | '(' TK_EXISTS '(' quant_var_list ')' a_term ')'
   {
-      smtlib2_term tmp;
       $$ = parser->make_exists_term(parser, $6);
-      tmp = parser->pop_quantifier_scope(parser);
-      if (tmp) {
-          $$ = tmp;
-      }
+      parser->pop_quantifier_scope(parser);
       smtlib2_vector_delete($4);
   }
 | term_num_constant

@@ -206,20 +206,20 @@ struct smtlib2_parser_interface {
      * pop a scope for let bindings. called every time the closing parenthesis
      * for a "let" is parsed
      */
-    smtlib2_term (*pop_let_scope)(smtlib2_parser_interface *parser);
+    void (*pop_let_scope)(smtlib2_parser_interface *parser);
 
     /**
      * push a scope for quantified variables. called every time an "exist" or
      * "forall" is parsed, and also when a "define-function" with parameters
      * is parsed
      */
-    smtlib2_term (*push_quantifier_scope)(smtlib2_parser_interface *parser);
+    void (*push_quantifier_scope)(smtlib2_parser_interface *parser);
 
     /**
      * pop a scope for quantified variabled. called when the closing
      * parenthesis for an "exists", "forall" or "define-function" is parsed
      */
-    smtlib2_term (*pop_quantifier_scope)(smtlib2_parser_interface *parser);
+    void (*pop_quantifier_scope)(smtlib2_parser_interface *parser);
 
     /**
      * push a scope for sort parameters. called when a "define-sort" is parsed
