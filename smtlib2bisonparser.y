@@ -5,6 +5,7 @@
  * Author: Alberto Griggio <griggio@fbk.eu>
  *
  * Copyright (C) 2010 Alberto Griggio
+ * Copyright 2016-2017 Franz Brausse
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),

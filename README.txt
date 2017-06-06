@@ -2,6 +2,7 @@ A Generic Parser for SMT-LIB v2
 ===============================
 
 Alberto Griggio <griggio@fbk.eu>
+Franz Brausse <brausse@informatik.uni-trier.de>
 
 
 This is a (complete, I think) parser/lexer for the SMT-LIB v2 language,
