@@ -2,10 +2,11 @@ PREFIX ?= /usr/local
 
 TOUCH = touch
 
-CC = gcc
+CC_STD = -std=c99
 FLEX = flex
 BISON = bison
-CFLAGS = -std=gnu99 -pedantic -g -Wall -O2
+CPPFLAGS += $(CC_STD) -D_POSIX_C_SOURCE
+CFLAGS = -pedantic -g -Wall -O2
 LDFLAGS = -g -lgmp -lgmpxx -lstdc++
 
 OBJECTS = smtlib2bisonparser.o \
@@ -63,7 +64,7 @@ libsmtlib2parser.a: $(OBJECTS)
 
 
 %.o: %.c $(DIST_HEADERS) smtlib2bisonparser.h smtlib2flexlexer.h
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
 
 
 smtlib2bisonparser.c: smtlib2bisonparser.y
