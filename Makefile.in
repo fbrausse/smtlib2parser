@@ -1,5 +1,7 @@
 PREFIX ?= /usr/local
 
+TOUCH = touch
+
 CC = gcc
 FLEX = flex
 BISON = bison
@@ -56,17 +58,22 @@ yicesmain.o: yicesmain.c
 
 
 libsmtlib2parser.a: $(OBJECTS)
-	ar rc $@ $(OBJECTS)
-	ranlib $@
+	ar rc $@ $(OBJECTS) && ranlib $@
 
 
 
-%.o: %.c
+%.o: %.c $(DIST_HEADERS) smtlib2bisonparser.h smtlib2flexlexer.h
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 
-smtlib2bisonparser.c: smtlib2bisonparser.y smtlib2flexlexer.c
+smtlib2bisonparser.c: smtlib2bisonparser.y
 	$(BISON) -o $@ $<
+
+smtlib2bisonparser.h: smtlib2bisonparser.c
+	$(TOUCH) $@
 
 smtlib2flexlexer.c: smtlib2flexlexer.l
 	$(FLEX) --header-file="smtlib2flexlexer.h" -o $@ $<
+
+smtlib2flexlexer.h: smtlib2flexlexer.c
+	$(TOUCH) $@
