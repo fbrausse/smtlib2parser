@@ -55,7 +55,10 @@ char *smtlib2_vsprintf(const char *fmt, va_list args)
         } else {
             size *= 2;
         }
-        ret = (char *)realloc(ret, size);
+        char *nbuf = (char *)realloc(ret, size);
+        if (!nbuf)
+            free(ret);
+        ret = nbuf;
     }
     return ret;
 }
