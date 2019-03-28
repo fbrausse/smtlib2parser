@@ -111,6 +111,7 @@ smtlib2_term smtlib2_make_term_from_identifier(
 %token TK_DEFINE_SORT          "define-sort"
 %token TK_DECLARE_FUN          "declare-fun"
 %token TK_DEFINE_FUN           "define-fun"
+%token TK_DECLARE_CONST        "declare-const"
 %token TK_PUSH                 "push"
 %token TK_POP                  "pop"
 %token TK_ASSERT               "assert"
@@ -181,6 +182,7 @@ command :
 | cmd_define_sort
 | cmd_declare_fun
 | cmd_define_fun
+| cmd_declare_const
 | cmd_push
 | cmd_pop
 | cmd_assert
@@ -272,6 +274,15 @@ cmd_define_fun :
       smtlib2_vector_delete($5);
   }
 ;
+
+
+cmd_declare_const :
+  '(' TK_DECLARE_CONST SYMBOL a_sort ')'
+  {
+      smtlib2_sort tp = $4;
+      parser->declare_function(parser, $3, tp);
+      free($3);
+  }
 
 
 cmd_push : '(' TK_PUSH NUMERAL ')'
